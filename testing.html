@@ -1,0 +1,322 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Valentine 💘</title>
+    <style>
+        :root {
+            --pink1: #ffd6e8;
+            --pink2: #ffe8f2;
+            --ink: #1e1e1e;
+            --muted: #555;
+            --yes: #e83a5a;
+            --yes2: #ff6f8f;
+            --card: rgba(255, 255, 255, 0.88);
+            --shadow: 0 12px 30px rgba(0, 0, 0, 0.10);
+        }
+
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+            font-family: system-ui, -apple-system, Segoe UI, Roboto, Arial;
+            color: var(--ink);
+            background:
+                radial-gradient(900px 500px at 20% 20%, var(--pink1), transparent 60%),
+                radial-gradient(900px 500px at 80% 70%, var(--pink2), transparent 55%),
+                linear-gradient(135deg, #fff0f6, #fdeaff);
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+        }
+
+        /* floating hearts */
+        .hearts {
+            position: fixed;
+            inset: 0;
+            pointer-events: none;
+            opacity: .35;
+        }
+
+        .heart {
+            position: absolute;
+            animation: floatUp linear infinite;
+            transform: translateY(120vh);
+        }
+
+        @keyframes floatUp {
+            from {
+                transform: translateY(120vh) rotate(0deg);
+                opacity: 0;
+            }
+
+            15% {
+                opacity: .9;
+            }
+
+            to {
+                transform: translateY(-20vh) rotate(360deg);
+                opacity: 0;
+            }
+        }
+
+        .wrap {
+            width: min(560px, 92vw);
+            padding: 16px;
+        }
+
+        .card {
+            background: var(--card);
+            border-radius: 22px;
+            box-shadow: var(--shadow);
+            padding: 26px 22px 30px;
+            text-align: center;
+            position: relative;
+        }
+
+        h1 {
+            margin: 4px 0 10px;
+            font-size: clamp(26px, 5vw, 38px);
+            line-height: 1.15;
+        }
+
+        .sub {
+            margin: 0 auto 16px;
+            font-size: 15px;
+            color: var(--muted);
+        }
+
+        .name {
+            font-weight: 800;
+            color: #e83a5a;
+        }
+
+        .row {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 14px;
+            margin-top: 16px;
+            min-height: 160px;
+            position: relative;
+        }
+
+        button {
+            border: 0;
+            padding: 12px 22px;
+            font-size: 16px;
+            border-radius: 12px;
+            cursor: pointer;
+            transition: transform .08s ease, box-shadow .15s ease, background .2s ease;
+            user-select: none;
+        }
+
+        button:active {
+            transform: scale(0.97);
+        }
+
+        .yes {
+            background: linear-gradient(180deg, var(--yes2), var(--yes));
+            color: #fff;
+            box-shadow: 0 8px 18px rgba(232, 58, 90, 0.35);
+            min-width: 110px;
+            font-weight: 700;
+        }
+
+        .no {
+            background: #fff;
+            border: 1px solid rgba(0, 0, 0, 0.15);
+            min-width: 110px;
+            box-shadow: 0 6px 14px rgba(0, 0, 0, 0.08);
+        }
+
+        .no-placeholder {
+            width: 110px;
+            height: 48px;
+        }
+
+        .no.ghost {
+            visibility: hidden;
+            pointer-events: none;
+        }
+
+        .no.floating {
+            position: absolute;
+            z-index: 5;
+        }
+
+        .hidden {
+            display: none !important;
+        }
+
+        .yay {
+            font-size: 34px;
+            margin: 6px 0 8px;
+        }
+
+        .yayline {
+            font-size: 16px;
+            color: var(--muted);
+            margin-bottom: 14px;
+        }
+
+        .gifbox {
+            width: 100%;
+            max-width: 360px;
+            margin: 14px auto;
+            border-radius: 16px;
+            overflow: hidden;
+            box-shadow: 0 10px 24px rgba(0, 0, 0, 0.12);
+        }
+
+        .gifbox img {
+            width: 100%;
+            display: block;
+        }
+
+        .love {
+            margin-top: 10px;
+            font-size: 18px;
+        }
+
+        .confetti {
+            position: fixed;
+            inset: 0;
+            pointer-events: none;
+            overflow: hidden;
+        }
+
+        .confetti i {
+            position: absolute;
+            width: 8px;
+            height: 14px;
+            opacity: 0;
+            border-radius: 3px;
+            animation: confettiFall 1.8s ease-in infinite;
+        }
+
+        @keyframes confettiFall {
+            0% {
+                transform: translateY(-30vh) rotate(0deg);
+                opacity: 0;
+            }
+
+            10% {
+                opacity: 1;
+            }
+
+            100% {
+                transform: translateY(110vh) rotate(540deg);
+                opacity: 0;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="hearts" id="hearts"></div>
+
+    <div class="wrap">
+        <div class="card" id="askCard">
+            <h1><span class="name" id="who">Sravanthi</span>, will you be my Best Friend? 💗</h1>
+            <p class="sub">Choose wisely — the NO button is shy 😄</p>
+
+            <div class="row" id="playground">
+                <button class="yes" id="yesBtn">YES</button>
+
+                <div class="no-placeholder" id="noPlaceholder">
+                    <button class="no ghost">NO</button>
+                </div>
+
+                <button class="no floating" id="noBtn">NO</button>
+            </div>
+        </div>
+
+        <div class="card hidden" id="yayCard">
+            <div class="yay">💖 YAY! 💖</div>
+            <div class="yayline">Best decision ever 😘</div>
+
+            <div class="gifbox">
+                <img src="https://media2.giphy.com/media/v1.Y2lkPTc5MGI3NjExYW1hN211MGkxcmhjdHFibXY0N2IzeHlpYXkwZWRpcWJkeXpyZjA3ZiZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/TuDyQjiZGWwQ8j3DAr/giphy.gif">
+            </div>
+
+            <div class="love">I’m really happy to be your friend 🤝</div>
+        </div>
+    </div>
+
+    <div class="confetti hidden" id="confetti"></div>
+
+    <script>
+        const WIFE_NAME = "Sravanthi";
+        document.getElementById("who").textContent = WIFE_NAME;
+
+        const askCard = document.getElementById("askCard");
+        const yayCard = document.getElementById("yayCard");
+        const yesBtn = document.getElementById("yesBtn");
+        const noBtn = document.getElementById("noBtn");
+        const confetti = document.getElementById("confetti");
+        const noPlaceholder = document.getElementById("noPlaceholder");
+        const playground = document.getElementById("playground");
+
+        function placeNo() {
+            const pr = noPlaceholder.getBoundingClientRect();
+            const rr = playground.getBoundingClientRect();
+            noBtn.style.left = (pr.left - rr.left) + "px";
+            noBtn.style.top = (pr.top - rr.top) + "px";
+        }
+
+        window.onload = placeNo;
+        window.onresize = placeNo;
+
+        function moveNo() {
+            const rr = playground.getBoundingClientRect();
+            const br = noBtn.getBoundingClientRect();
+            const x = Math.random() * (rr.width - br.width - 10);
+            const y = Math.random() * (rr.height - br.height - 10);
+            noBtn.style.left = x + "px";
+            noBtn.style.top = y + "px";
+        }
+
+        noBtn.onmouseenter = moveNo;
+        noBtn.onpointerdown = (e) => { e.preventDefault(); moveNo(); };
+
+        yesBtn.onclick = () => {
+            askCard.classList.add("hidden");
+            yayCard.classList.remove("hidden");
+            startConfetti();
+        };
+
+        // hearts
+        const hearts = document.getElementById("hearts");
+        const heartEmojis = ["💗", "💖", "💞", "💕"];
+        for (let i = 0; i < 16; i++) {
+            const s = document.createElement("span");
+            s.className = "heart";
+            s.textContent = heartEmojis[Math.floor(Math.random() * heartEmojis.length)];
+            s.style.left = Math.random() * 100 + "vw";
+            s.style.animationDuration = (8 + Math.random() * 6) + "s";
+            s.style.fontSize = (14 + Math.random() * 12) + "px";
+            hearts.appendChild(s);
+        }
+
+        function startConfetti() {
+            confetti.classList.remove("hidden");
+            confetti.innerHTML = "";
+            for (let i = 0; i < 60; i++) {
+                const p = document.createElement("i");
+                p.style.left = Math.random() * 100 + "vw";
+                p.style.background = `hsl(${Math.random()*360} 90% 60%)`;
+                confetti.appendChild(p);
+            }
+            setTimeout(() => confetti.classList.add("hidden"), 5000); /* popup gif time reduced */
+        }
+    </script>
+</body>
+
+</html>
